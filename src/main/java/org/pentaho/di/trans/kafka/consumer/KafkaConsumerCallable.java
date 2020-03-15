@@ -29,7 +29,7 @@ public abstract class KafkaConsumerCallable implements Callable<Object> {
      * @param message Kafka message
      * @param key     Kafka key
      */
-    protected abstract void messageReceived(byte[] key, byte[] message) throws KettleException;
+    protected abstract void messageReceived(byte[] key, byte[] message, long partition, long offset, long timestamp) throws KettleException;
 
     public Object call() throws KettleException {
         try {
@@ -44,7 +44,12 @@ public abstract class KafkaConsumerCallable implements Callable<Object> {
             }
             while (data.streamIterator.hasNext() && !data.canceled && (limit <= 0 || data.processed < limit)) {
                 MessageAndMetadata<byte[], byte[]> messageAndMetadata = data.streamIterator.next();
-                messageReceived(messageAndMetadata.key(), messageAndMetadata.message());
+                messageReceived(messageAndMetadata.key(),
+                                messageAndMetadata.message(),
+                                messageAndMetadata.partition(),
+                                messageAndMetadata.offset(),
+                                messageAndMetadata.timestamp()
+                );
                 ++data.processed;
             }
         } catch (ConsumerTimeoutException cte) {

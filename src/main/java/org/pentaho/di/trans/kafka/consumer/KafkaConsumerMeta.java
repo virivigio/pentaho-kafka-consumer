@@ -55,6 +55,7 @@ public class KafkaConsumerMeta extends BaseStepMeta implements StepMetaInterface
             "consumer.timeout.ms", "client.id", "zookeeper.session.timeout.ms", "zookeeper.connection.timeout.ms",
             "zookeeper.sync.time.ms"};
 
+
     @SuppressWarnings("WeakerAccess")
     protected static final Map<String, String> KAFKA_PROPERTIES_DEFAULTS = new HashMap<String, String>();
 
@@ -361,6 +362,19 @@ public class KafkaConsumerMeta extends BaseStepMeta implements StepMetaInterface
             ValueMetaInterface keyFieldValueMeta = ValueMetaFactory.createValueMeta(getKeyField(), ValueMetaInterface.TYPE_BINARY);
             keyFieldValueMeta.setOrigin(origin);
             rowMeta.addValueMeta(keyFieldValueMeta);
+
+            ValueMetaInterface partitionFieldValueMeta = ValueMetaFactory.createValueMeta("partition", ValueMetaInterface.TYPE_INTEGER);
+            keyFieldValueMeta.setOrigin(origin);
+            rowMeta.addValueMeta(partitionFieldValueMeta);
+
+            ValueMetaInterface offsetFieldValueMeta = ValueMetaFactory.createValueMeta("offset", ValueMetaInterface.TYPE_INTEGER);
+            keyFieldValueMeta.setOrigin(origin);
+            rowMeta.addValueMeta(offsetFieldValueMeta);
+
+            ValueMetaInterface timestampFieldValueMeta = ValueMetaFactory.createValueMeta("timestamp", ValueMetaInterface.TYPE_INTEGER);
+            keyFieldValueMeta.setOrigin(origin);
+            rowMeta.addValueMeta(timestampFieldValueMeta);
+
 
         } catch (KettlePluginException e) {
             throw new KettleStepException("KafkaConsumerMeta.Exception.getFields", e);
