@@ -8,6 +8,9 @@ import kafka.javaapi.consumer.ZookeeperConsumerConnector;
 import kafka.message.Message;
 import kafka.message.MessageAndMetadata;
 import kafka.serializer.DefaultDecoder;
+
+import org.apache.kafka.common.record.TimestampType;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -161,7 +164,7 @@ public class KafkaConsumerTest {
         assertNotNull(result);
         assertEquals(Integer.parseInt(STEP_LIMIT), result.size());
         for (int i = 0; i < Integer.parseInt(STEP_LIMIT); i++) {
-            assertEquals(2, result.get(i).size());
+            assertEquals(5, result.get(i).size());
             assertEquals("aMessage", result.get(i).getString(0, "default value"));
         }
     }
@@ -182,7 +185,7 @@ public class KafkaConsumerTest {
         assertNotNull(result);
         assertEquals(Integer.parseInt(STEP_LIMIT), result.size());
         for (int i = 0; i < Integer.parseInt(STEP_LIMIT); i++) {
-            assertEquals(3, result.get(i).size());
+            assertEquals(6, result.get(i).size());
             assertEquals("aMessage", result.get(i).getString(1, "default value"));
         }
     }
@@ -220,8 +223,9 @@ public class KafkaConsumerTest {
     private static MessageAndMetadata<byte[], byte[]> generateKafkaMessage() {
         byte[] message = "aMessage".getBytes();
 
+        kafka.serializer.Decoder<byte[]> decoder = new DefaultDecoder(null);
         return new MessageAndMetadata<byte[], byte[]>("topic", 0, new Message(message),
-                0, new DefaultDecoder(null), new DefaultDecoder(null));
+                0L, decoder, decoder, 0L, TimestampType.forName("NoTimestampType"));
     }
 
 }
