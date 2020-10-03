@@ -10,7 +10,7 @@ Adds:
  - partition
  - offset
  
-information. But now requires Kafka 10.0.1.0. For version 0.8.1.1 go to the original project.
+information. But now requires Kafka 0.10.1.0 For version 0.8.1.1 go to the original project.
 
 ### Screenshots ###
 
@@ -19,8 +19,8 @@ information. But now requires Kafka 10.0.1.0. For version 0.8.1.1 go to the orig
 
 ### Apache Kafka Compatibility ###
 
-The consumer depends on Apache Kafka 10.0.1.0. For version 0.8.1.1 go to the original project.
-This means that the broker must be of 10.0.1.x version or later.
+The consumer depends on Apache Kafka 0.10.1.0 For version 0.8.1.1 go to the original project.
+This means that the broker must be of 0.10.1.0 version or later.
 
 If you want to build the plugin for a different Kafka version you have to
 modify the values of kafka.version and kafka.scala.version in the properties
