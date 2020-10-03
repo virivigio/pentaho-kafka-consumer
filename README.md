@@ -2,15 +2,9 @@ pentaho-kafka-consumer
 ======================
 
 Apache Kafka consumer step plug-in for Pentaho Kettle.
-Forked from [Michael Spector](https://github.com/spektom)'s [RuckusWirelessIL/pentaho-kafka-consumer](https://github.com/RuckusWirelessIL/pentaho-kafka-consumer)
 
+[![Build Status](https://travis-ci.org/RuckusWirelessIL/pentaho-kafka-consumer.png)](https://travis-ci.org/RuckusWirelessIL/pentaho-kafka-consumer)
 
-Adds:
- - timestamp
- - partition
- - offset
- 
-information. But now requires Kafka 0.10.1.0 For version 0.8.1.1 go to the original project.
 
 ### Screenshots ###
 
@@ -19,8 +13,7 @@ information. But now requires Kafka 0.10.1.0 For version 0.8.1.1 go to the origi
 
 ### Apache Kafka Compatibility ###
 
-The consumer depends on Apache Kafka 0.10.1.0 For version 0.8.1.1 go to the original project.
-This means that the broker must be of 0.10.1.0 version or later.
+The consumer depends on Apache Kafka 1.1.0. Check broker version to ensure compatibility.
 
 If you want to build the plugin for a different Kafka version you have to
 modify the values of kafka.version and kafka.scala.version in the properties
