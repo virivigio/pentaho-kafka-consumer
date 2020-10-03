@@ -141,7 +141,7 @@ public class KafkaConsumerTest
         assertNotNull(result);
         assertEquals(Integer.parseInt(STEP_LIMIT), result.size());
         for (int i = 0; i < Integer.parseInt(STEP_LIMIT); i++) {
-            assertEquals(2, result.get(i).size());
+            assertEquals(5, result.get(i).size());
             assertEquals("value", result.get(i).getString(1, "null"));
         }
     }

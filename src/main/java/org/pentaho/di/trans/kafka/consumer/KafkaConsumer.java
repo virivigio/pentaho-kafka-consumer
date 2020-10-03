@@ -55,7 +55,9 @@ public class KafkaConsumer extends BaseStep implements StepInterface
         this.data = (KafkaConsumerData) sdi;
         // Close consumer.
         if (data.consumer != null) {
-            data.consumer.close();
+            synchronized(data.consumer) {
+                data.consumer.close();
+            }
         }
         super.dispose(smi, sdi);
     }
@@ -73,8 +75,12 @@ public class KafkaConsumer extends BaseStep implements StepInterface
     {
         this.meta = (KafkaConsumerMeta) smi;
         this.data = (KafkaConsumerData) sdi;
-        // Close kafka consumer.
-        this.data.consumer.close();
+        // Close consumer.
+        if (data.consumer != null) {
+            synchronized(data.consumer) {
+                data.consumer.close();
+            }
+        }
         // Stop step.
         super.stopRunning(smi, sdi);
     }
@@ -173,6 +179,9 @@ public class KafkaConsumer extends BaseStep implements StepInterface
             Object[] outputRow = RowDataUtil.allocateRowData(this.data.outputRowMeta.size());
             outputRow[0] = msg.key();
             outputRow[1] = msg.value();
+            outputRow[2] = Integer.toString(msg.partition());
+            outputRow[3] = Long.toString(msg.offset());
+            outputRow[4] = Long.toString(msg.timestamp());
             // Output the row.
             try {
                 this.putRow(this.data.outputRowMeta, this.data.outputRowMeta.cloneRow(outputRow));

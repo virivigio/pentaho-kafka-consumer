@@ -74,8 +74,8 @@ public class KafkaConsumerMetaTest
         RowMetaInterface rowMeta = new RowMeta();
         m.getFields(rowMeta, "kafka_consumer", null, null, null, null, null);
 
-        // expect two fields to be added to the row stream
-        assertEquals(2, rowMeta.size());
+        // expect 5 fields to be added to the row stream
+        assertEquals(5, rowMeta.size());
 
         // those fields must strings and named as configured
         assertEquals(ValueMetaInterface.TYPE_STRING, rowMeta.getValueMeta(0).getType());

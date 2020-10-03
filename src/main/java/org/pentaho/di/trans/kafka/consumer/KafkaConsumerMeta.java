@@ -266,10 +266,24 @@ public class KafkaConsumerMeta extends BaseStepMeta implements StepMetaInterface
             ValueMetaInterface keyValueMeta = ValueMetaFactory.createValueMeta(this.keyField, ValueMetaInterface.TYPE_STRING);
             keyValueMeta.setOrigin(name);
             rowMeta.addValueMeta(keyValueMeta);
+            
             // Add the message field to the row.
             ValueMetaInterface messageValueMeta = ValueMetaFactory.createValueMeta(this.field, ValueMetaInterface.TYPE_STRING);
             messageValueMeta.setOrigin(name);
             rowMeta.addValueMeta(messageValueMeta);
+
+            ValueMetaInterface partitionFieldValueMeta = ValueMetaFactory.createValueMeta("partition", ValueMetaInterface.TYPE_STRING);
+            partitionFieldValueMeta.setOrigin(name);
+            rowMeta.addValueMeta(partitionFieldValueMeta);
+
+            ValueMetaInterface offsetFieldValueMeta = ValueMetaFactory.createValueMeta("offset", ValueMetaInterface.TYPE_STRING);
+            offsetFieldValueMeta.setOrigin(name);
+            rowMeta.addValueMeta(offsetFieldValueMeta);
+
+            ValueMetaInterface timestampFieldValueMeta = ValueMetaFactory.createValueMeta("timestamp", ValueMetaInterface.TYPE_STRING);
+            timestampFieldValueMeta.setOrigin(name);
+            rowMeta.addValueMeta(timestampFieldValueMeta);
+
         } catch (KettlePluginException e) {
             throw new KettleStepException("KafkaConsumerMeta.Exception.getFields", e);
         }
